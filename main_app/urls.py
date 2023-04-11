@@ -5,4 +5,6 @@ urlpatterns = [
         path('', views.home),  
         path('about/', views.about, name="about"), # path('about/', views.about, name ="about"),
         path('plants/', views.plants_index, name='index'),
+        path('plants/create/', views.PlantCreate.as_view(), name='cats_create'),
+        
     ]
