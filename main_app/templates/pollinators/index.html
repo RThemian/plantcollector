@@ -7,7 +7,7 @@
 {% block content %}
 <h1>Pollinator List</h1>
 <!-- NOTE: DTL (Django Template Language) is not python, although similar -->
-{% for pollinator in pollinators %}
+{% for pollinator in object_list %}
 <a href="{% url 'pollinators_detail' pollinator.id %}">
 <div class="card">
 <div class="card-content">
