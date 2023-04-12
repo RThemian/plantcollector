@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}
+
+<title>Pollinator List</title>
+{% endblock %}
+{% block content %}
+<h1>Pollinator List</h1>
+<!-- NOTE: DTL (Django Template Language) is not python, although similar -->
+{% for pollinator in pollinators %}
+<a href="{% url 'pollinators_detail' pollinator.id %}">
+<div class="card">
+<div class="card-content">
+<span class="card-title">{{ pollinator.name }}</span>
+<p>Description: {{ pollinator.description }}</p>
+        {% if pollinator.lifespan  %}
+        <p>Lifespan: {{ pollinator.lifespan }} years</p>
+        {% else %}
+        <p>Lifespan: Unknown</p>
+        {% endif %}
+    </div>
+</div>
+</a>
+{% endfor %}
+{% endblock %}

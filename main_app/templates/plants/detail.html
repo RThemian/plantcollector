@@ -19,9 +19,14 @@
                     {% else %}
                     <p>Lifespan: Unknown</p>
                     {% endif %}
+                    <div class="card-action">
+                        <a href="{% url 'plants_update' plant.id %}">Update</a>
+                        <a href="{% url 'plants_delete' plant.id %}">Delete</a>
+                      </div>
                 </div>
             </div>
         </div>
+       
     </div>
 
 {% endblock %}

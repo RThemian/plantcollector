@@ -25,7 +25,7 @@
                 <a class ='left brand-logo' href="/">Plant Collector</a>
                 <ul class="right">
                     <li >
-                        <a href=# >About</a>
+                        <a href="{% url 'about' %}" >About</a>
                     </li>
                     <li>
                         <a href="{% url 'plants_index' %}" >View All Plants</a>
@@ -34,10 +34,10 @@
                         <a href="{% url 'plants_create' %}" >Add a Plant</a>
                     </li>
                     <li>
-                        <a href=# >View Pollinators</a>
+                        <a href="{% url 'pollinators_index' %}" >View Pollinators</a>
                     </li>
                     <li>
-                        <a href=# >Add a Pollinators</a>
+                        <a href="{% url 'pollinators_create' %}" >Add a Pollinator</a>
                     </li>
 
                 
