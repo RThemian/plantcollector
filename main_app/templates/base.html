@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% block title %}
-    <title>Plant Collector</title>
+    <title>Cat Collector</title>
     {% endblock %}
     <link
       rel="stylesheet"
@@ -25,22 +25,35 @@
                 <a class ='left brand-logo' href="/">Plant Collector</a>
                 <ul class="right">
                     <li >
-                        <a href="{% url 'about' %}" >About</a>
+                        <a href="{% url 'about' %}">About</a>
+                    </li>
+                    {% if user.is_authenticated %}
+                    <li>
+                        <a href="{% url 'plants_index' %}">View All Plants</a>
                     </li>
                     <li>
-                        <a href="{% url 'plants_index' %}" >View All Plants</a>
+                        <a href="{% url 'plants_create' %}">Add a Plant</a>
                     </li>
                     <li>
-                        <a href="{% url 'plants_create' %}" >Add a Plant</a>
+                        <a href="{% url 'pollinators_index' %}">View All Pollinators</a>
                     </li>
                     <li>
-                        <a href="{% url 'pollinators_index' %}" >View Pollinators</a>
+                        <a href="{% url 'pollinators_create' %}">Add a Pollinator</a>
                     </li>
                     <li>
-                        <a href="{% url 'pollinators_create' %}" >Add a Pollinator</a>
+                        <!-- logout -->
+                        <a href="{% url 'logout' %}">Logout</a>
                     </li>
-
-                
+                    {% else %}
+                    <li>
+                        <!-- login -->
+                        <a href="{% url 'login' %}">Login</a>
+                    </li>
+                    <li>
+                        <!-- signup -->
+                        <a href="{% url 'signup' %}">Sign Up</a>
+                    </li>
+                    {% endif %}
                 </ul>
             </div>
         </nav>
