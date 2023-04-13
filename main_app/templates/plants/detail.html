@@ -1,6 +1,3 @@
-<html>
-    <body>
-        
 {% extends 'base.html' %}
 
 {% block title %}
@@ -15,24 +12,128 @@
             <div class="card">
                 <div class="card-content">
                     <span class="card-title">{{ plant.name }}</span>
-                  
                     <p>Description: {{ plant.description }}</p>
                     {% if plant.lifespan > 0 %}
                     <p>Lifespan: {{ plant.lifespan }} years</p>
                     {% else %}
                     <p>Lifespan: Unknown</p>
                     {% endif %}
-                    <div class="card-action">
-                        <a href="{% url 'plants_update' plant.id %}">Update</a>
-                        <a href="{% url 'plants_delete' plant.id %}">Delete</a>
-                      </div>
                 </div>
             </div>
+            <div class="card-action">
+                <a href="{% url 'plants_update' plant.id %}">Update</a>
+                <a href="{% url 'plants_delete' plant.id %}">Delete</a>
+              </div>
+              <!-- New markup above -->
+               <!-- display photos -->
+            {% for photo in plant.photo_set.all %}
+            <img src="{{ photo.url }}" alt="{{ plant.name }}" class="responsive-img card-panel">
+        
+        {% empty %} 
+            <div class="card-panel blue-text center-align">No photos uploaded</div>
+        {% endfor %}
+        <!-- upload photos -->
+        <form action="{% url 'add_photo' plant.id %}" method="POST" enctype="multipart/form-data" class="card-panel">
+            {% csrf_token %}
+            {{ photo_form.as_p }}
+            <input type="file" name="photo-file">
+            <input type="submit" value="Add Photo" class="btn blue">
+        </form>
+          
+           
         </div>
-       
+            <div class="col s6">
+                <form action="{% url 'add_watering' plant.id %}" method="POST">
+                    {% csrf_token %}
+                    {{ watering_form.as_p }}
+                    <input type="submit" value="Add Watering" class="btn blue">
+                </form>
+                <table class="striped">
+                    <thead>
+                        <th>Date</th>
+                        <th>Amount</th>
+                    </thead>
+                    <tbody>
+                        {% for watering in plant.watering_set.all %} 
+                            <tr>
+                                <td>{{ watering.date }}</td>
+                                <td>{{ watering.amount }} ml</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+
+        </div>
+    </div>
+   
+
+<hr/>
+<div class="row">
+    <div class="col s6">
+        <h3>{{ pollinator.name }}'s Waterings</h3>
+        {% if pollinator.watering_set.count %}
+            {% for watering in pollinator.watering_set.all %}
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title">{{ watering.date }}</span>
+                        <p>Method: {{ watering.method }}</p>
+                        <p>Notes: {{ watering.notes }}</p>
+                    </div>
+                    <div class="card-action">
+                        <form action="{% url 'pollinators_unassoc_watering' pollinator.id watering.id %}" method="POST">
+                            <!-- security measure for all forms in python -->
+                            {% csrf_token %} 
+                            <input type="submit" value = "Remove" class = "btn red">
+                        </form>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+        <h5>{{ pollinator.name }} hasn't been watered yet 😿</h5>
+        {% endif %}
     </div>
 
-{% endblock %}
-    </body>
-</html>
+    <div class="col s6">
+        <h3>Watering History</h3>
+        {% if waterings.count %}
+            {% for watering in waterings %}
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title">{{ watering.date }}</span>
+                        <p>Method: {{ watering.method }}</p>
+                        <p>Notes: {{ watering.notes }}</p>
+                    </div>
+                    <div class="card-action">
+                        <form action="{% url 'pollinators_assoc_watering' pollinator.id watering.id %}" method="POST">
+                            <!-- security measure for all forms in python -->
+                            {% csrf_token %} 
+                            <input type="submit" value = "Add" class = "btn blue">
+                        </form>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+        <h5>No watering history available</h5>
+        {% endif %}
+    </div>
+</div>
 
+<script>
+    // DOM Element references
+    const datePickerEl = document.getElementById('id_date');
+    const methodSelectEl = document.getElementById('id_method');
+    // materialize init for datepicker and form select
+    M.Datepicker.init(datePickerEl, {
+    format: 'yyyy-mm-dd',
+    defaultDate: new Date(),
+    setDefaultDate: true,
+    autoClose: true
+  });
+    M.FormSelect.init(methodSelectEl);
+</script>
+    
+    {% endblock %}
+    
+ 
