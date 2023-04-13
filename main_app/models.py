@@ -44,6 +44,7 @@ class Watering(models.Model):
         choices=HYDRATIONS,
         default=HYDRATIONS[0][0]
     )
+    amount = models.IntegerField(default=100)
 
     plant = models.ForeignKey(Plant, on_delete=models.CASCADE)
 

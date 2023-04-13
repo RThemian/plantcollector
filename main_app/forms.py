@@ -9,5 +9,6 @@ class WateringForm(ModelForm):
     # Meta class is useful because it allows us to keep our form code separate from our model code
     class Meta:
         model = Watering
-        fields = ('date', 'hydration')
+        fields = ('date', 'hydration', 'amount') 
+
 

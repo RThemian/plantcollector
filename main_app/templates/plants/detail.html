@@ -46,17 +46,22 @@
                 <form action="{% url 'add_watering' plant.id %}" method="POST">
                     {% csrf_token %}
                     {{ watering_form.as_p }}
+                    <label for="amount">Amount in mL</label>
+                    <!-- <input type="number" name="amount" id="amount" min="0" max="1000" step="1" value="0"> -->
                     <input type="submit" value="Add Watering" class="btn blue">
+
                 </form>
                 <table class="striped">
                     <thead>
                         <th>Date</th>
+                        <th>Time</th>
                         <th>Amount</th>
                     </thead>
                     <tbody>
                         {% for watering in plant.watering_set.all %} 
                             <tr>
                                 <td>{{ watering.date }}</td>
+                                <td>{{ watering.hydration }}</td>
                                 <td>{{ watering.amount }} ml</td>
                             </tr>
                         {% endfor %}
@@ -124,7 +129,7 @@
 <script>
     // DOM Element references
     const datePickerEl = document.getElementById('id_date');
-    const methodSelectEl = document.getElementById('id_method');
+    const methodSelectEl = document.getElementById('id_hydration');
     // materialize init for datepicker and form select
     M.Datepicker.init(datePickerEl, {
     format: 'yyyy-mm-dd',

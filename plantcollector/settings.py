@@ -31,7 +31,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+# insert emoji how? cmd + ctrl + space 
 
 # Application definition
 
