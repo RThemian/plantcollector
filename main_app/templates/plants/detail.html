@@ -33,7 +33,11 @@
             <div class="card-panel blue-text center-align">No photos uploaded</div>
         {% endfor %}
         <!-- upload photos -->
-        <form action="{% url 'add_photo' plant.id %}" method="POST" enctype="multipart/form-data" class="card-panel">
+        <form 
+        action="{% url 'add_photo' plant.id %}" 
+        method="POST" 
+        enctype="multipart/form-data" 
+        class="card-panel">
             {% csrf_token %}
             {{ photo_form.as_p }}
             <input type="file" name="photo-file">
