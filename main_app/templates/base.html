@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,62 +9,57 @@
     {% block title %}
     <title>Plant Collector</title>
     {% endblock %}
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
-    />
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <!-- materialize jQuery -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <!-- <script defer src ="{% static 'js/script.js' %}"></script> adds javascript--> 
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/output.css' %}">
+    <!-- tailwindcss -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.15/tailwind.min.css"
+        integrity="sha512-2mKP1I+GmkDvYzKk+zIfhTVt8BwpeP+pVtNOMTTnKZV7a3e3YFGV7pcn5F/MS5KQ2wE5SBBptuJZ0jKxbksu8A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
+
 <body class="">
-    <!-- materialize css classes -->
-    <header class="navbar-fixed ">
-        <nav>
-            <div class="nav-wrapper purple accent-1">
-                <a class ='left brand-logo' href="/">Plant Collector</a>
-                <ul class="right">
-                    <li >
-                        <a href="{% url 'about' %}">About</a>
-                    </li>
-                    {% if user.is_authenticated %}
-                    <li>
-                        <a href="{% url 'plants_index' %}">View All Plants</a>
-                    </li>
-                    <li>
-                        <a href="{% url 'plants_create' %}">Add a Plant</a>
-                    </li>
-                    <li>
-                        <a href="{% url 'pollinators_index' %}">View All Pollinators</a>
-                    </li>
-                    <li>
-                        <a href="{% url 'pollinators_create' %}">Add a Pollinator</a>
-                    </li>
-                    <li>
-                        <!-- logout -->
-                        <a href="{% url 'logout' %}">Logout</a>
-                    </li>
-                    {% else %}
-                    <li>
-                        <!-- login -->
-                        <a href="{% url 'login' %}">Login</a>
-                    </li>
-                    <li>
-                        <!-- signup -->
-                        <a href="{% url 'signup' %}">Sign Up</a>
-                    </li>
-                    {% endif %}
-                </ul>
+    <header class="navbar-fixed">
+        <nav class="bg-purple-700">
+            <div class="container mx-auto px-4 py-3">
+                <div class="flex items-center justify-between">
+                    <a class="text-white font-bold text-xl" href="/">Plant Collector</a>
+                    <ul class="flex">
+                        <li class="ml-4">
+                            <a href="{% url 'about' %}" class="text-white hover:text-gray-200">About</a>
+                        </li>
+                        {% if user.is_authenticated %}
+                        <li class="ml-4">
+                            <a href="{% url 'plants_index' %}" class="text-white hover:text-gray-200">View All Plants</a>
+                        </li>
+                        <li class="ml-4">
+                            <a href="{% url 'plants_create' %}" class="text-white hover:text-gray-200">Add a Plant</a>
+                        </li>
+                        <li class="ml-4">
+                            <a href="{% url 'pollinators_index' %}" class="text-white hover:text-gray-200">View All Pollinators</a>
+                        </li>
+                        <li class="ml-4">
+                            <a href="{% url 'pollinators_create' %}" class="text-white hover:text-gray-200">Add a Pollinator</a>
+                        </li>
+                        <li class="ml-4">
+                            <a href="{% url 'logout' %}" class="text-white hover:text-gray-200">Logout</a>
+                        </li>
+                        {% else %}
+                        <li class="ml-4">
+                            <a href="{% url 'login' %}" class="text-white hover:text-gray-200">Login</a>
+                        </li>
+                        <li class="ml-4">
+                            <a href="{% url 'signup' %}" class="text-white hover:text-gray-200">Sign Up</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
             </div>
         </nav>
     </header>
-    <main class="container">
+    <main class="container mx-auto my-8">
         {% block content %}
         {% endblock %}
     </main>
-    <footer class="page-footer">
-        <p>Copyright &copy; All Rights Reserved Plant Collector 2023</p>
-    </footer>
-</body>
-</html>
+    <footer class="bg-purple-700 py-3">
+        <div class="container mx-auto text-center text-white font-bold">
+            <p>&copy; All Rights Reserved Plant Collector 2023</
